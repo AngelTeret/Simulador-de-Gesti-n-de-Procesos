@@ -51,6 +51,32 @@ randomProcessBtn.addEventListener('click', () => {
   addProcess(new Process(name, memory, duration));
 });
 
+function addProcess(process) {
+  if (memoryUsed + process.memory <= TOTAL_MEMORY) {
+    runningProcesses.push(process);
+    memoryUsed += process.memory;
+    logEvent(`Proceso ${process.name} (PID: ${process.pid}) iniciado.`, 'success');
+  } else {
+    waitingQueue.push(process);
+    logEvent(`Proceso ${process.name} (PID: ${process.pid}) en cola de espera.`, 'warning');
+  }
+  updateUI();
+}
+
+setInterval(() => {
+  // “tick” de simulación
+  runningProcesses.forEach((process, index) => {
+    process.remainingTime--;
+    if (process.remainingTime <= 0) {
+      memoryUsed -= process.memory;
+      logEvent(`Proceso ${process.name} (PID: ${process.pid}) finalizado.`, 'info');
+      runningProcesses.splice(index, 1);
+      checkWaitingQueue();
+    }
+  });
+  updateUI();
+}, 1000);
+
 function updateMemoryUI() {
   memoryUsedSpan.textContent = memoryUsed;
   memoryAvailableSpan.textContent = TOTAL_MEMORY - memoryUsed;
@@ -77,7 +103,39 @@ function renderRunning() {
     .join('');
 }
 
+function renderWaiting() {
+  waitingQueueTable.innerHTML = waitingQueue
+    .map(
+      (p) => `
+      <tr>
+        <td>${p.pid}</td>
+        <td>${p.name}</td>
+        <td>${p.memory}</td>
+        <td>${p.duration}</td>
+      </tr>`
+    )
+    .join('');
+}
+
+function checkWaitingQueue() {
+  if (waitingQueue.length > 0 && memoryUsed + waitingQueue[0].memory <= TOTAL_MEMORY) {
+    const nextProcess = waitingQueue.shift();
+    runningProcesses.push(nextProcess);
+    memoryUsed += nextProcess.memory;
+    logEvent(`Proceso ${nextProcess.name} (PID: ${nextProcess.pid}) iniciado desde cola.`, 'success');
+  }
+}
+
+function logEvent(message, type = 'info') {
+  const now = new Date().toLocaleTimeString();
+  const p = document.createElement('p');
+  p.className = `log-${type}`;
+  p.innerHTML = `<strong>[${now}]</strong> ${message}`;
+  eventLog.prepend(p);
+}
+
 function updateUI() {
-  updateMemoryUI();  
-  renderRunning(); 
+  updateMemoryUI();
+  renderRunning();
+  renderWaiting();
 }
