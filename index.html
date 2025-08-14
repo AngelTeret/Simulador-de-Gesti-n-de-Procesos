@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simulador de Gestión de Procesos en Memoria</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
+
 <body>
-    
+    <div class="app-container">
+        <header>
+            <h1><i class="fas fa-memory"></i> Simulador de Gestión de Procesos</h1>
+        </header>
+        <div class="dashboard">
+            <div class="card memory-card">
+                <h2><i class="fas fa-microchip"></i> Estado de Memoria</h2>
+                <div class="memory-display">
+                    <div class="memory-bar-container">
+                        <div class="memory-bar" id="memoryBarUsed"></div>
+                    </div>
+                    <div class="memory-stats">
+                        <span>Usada: <strong id="memoryUsed">0</strong> MB</span>
+                        <span>Disponible: <strong id="memoryAvailable">1024</strong> MB</span>
+                        <span>Total: 1024 MB</span>
+                    </div>
+                </div>
+            </div>
+        </div> /* Fin de div dashboard */
+    </div> /* Fin de div app-container */
     <script src="script.js"></script>
 </body>
+
 </html>
