@@ -29,6 +29,29 @@
                     </div>
                 </div>
             </div>
+            <div class="card process-form-card">
+                <h2><i class="fas fa-plus-circle"></i> Crear Proceso</h2>
+                <form id="processForm">
+                    <div class="form-group">
+                        <label for="processName">Nombre:</label>
+                        <input type="text" id="processName" placeholder="Nombre del proceso" />
+                    </div>
+                    <div class="form-group">
+                        <label for="processMemory">Memoria (MB):</label>
+                        <input type="number" id="processMemory" placeholder="1-1024" min="1" max="1024" />
+                    </div>
+                    <div class="form-group">
+                        <label for="processDuration">Duración (seg):</label>
+                        <input type="number" id="processDuration" placeholder="1-60" min="1" max="60" />
+                    </div>
+                    <button type="submit" class="btn primary">
+                        <i class="fas fa-plus"></i> Agregar Proceso
+                    </button>
+                    <button type="button" class="btn secondary" id="randomProcessBtn">
+                        <i class="fas fa-random"></i> Generar Aleatorio
+                    </button>
+                </form>
+            </div>
         </div> /* Fin de div dashboard */
     </div> /* Fin de div app-container */
     <script src="script.js"></script>
