@@ -27,6 +27,30 @@ class Process {
   }
 }
 
+processForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('processName').value;
+  const memory = document.getElementById('processMemory').value;
+  const duration = document.getElementById('processDuration').value;
+
+  if (!memory || !duration || memory <= 0 || duration <= 0) {
+    logEvent('Error: Memoria y duración deben ser mayores a 0.', 'danger');
+    return;
+  }
+
+  const p = new Process(name, memory, duration);
+  addProcess(p);
+  processForm.reset();
+});
+
+randomProcessBtn.addEventListener('click', () => {
+  const names = ['Chrome', 'Firefox', 'Node', 'Python', 'Excel', 'Word', 'Photoshop', 'VSCode', 'Spotify', 'Zoom'];
+  const name = names[Math.floor(Math.random() * names.length)];
+  const memory = Math.floor(Math.random() * 200) + 50; // 50-250 MB
+  const duration = Math.floor(Math.random() * 20) + 5; // 5-25 seg
+  addProcess(new Process(name, memory, duration));
+});
+
 function updateMemoryUI() {
   memoryUsedSpan.textContent = memoryUsed;
   memoryAvailableSpan.textContent = TOTAL_MEMORY - memoryUsed;
