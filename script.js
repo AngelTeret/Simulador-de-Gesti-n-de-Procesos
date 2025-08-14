@@ -57,7 +57,27 @@ function updateMemoryUI() {
   memoryBarUsed.style.width = `${(memoryUsed / TOTAL_MEMORY) * 100}%`;
 }
 
+function renderRunning() {
+  runningProcessesTable.innerHTML = runningProcesses
+    .map(
+      (p) => `
+      <tr>
+        <td>${p.pid}</td>
+        <td>${p.name}</td>
+        <td>${p.memory}</td>
+        <td>${p.duration}</td>
+        <td>${p.remainingTime}</td>
+        <td>
+          <div class="progress-bar">
+            <div class="progress" style="width:${((p.duration - p.remainingTime) / p.duration) * 100}%"></div>
+          </div>
+        </td>
+      </tr>`
+    )
+    .join('');
+}
 
 function updateUI() {
-  updateMemoryUI();   
+  updateMemoryUI();  
+  renderRunning(); 
 }
