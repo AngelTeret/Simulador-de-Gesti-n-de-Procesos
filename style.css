@@ -67,11 +67,26 @@ header i {
   gap: 25px;
   padding: 20px;
 }
-.memory-card { grid-area: memory; }
-.process-form-card { grid-area: process; }
-.running-processes-card { grid-area: running; }
-.waiting-queue-card { grid-area: waiting; }
-.event-log-card { grid-area: event; }
+
+.memory-card {
+  grid-area: memory;
+}
+
+.process-form-card {
+  grid-area: process;
+}
+
+.running-processes-card {
+  grid-area: running;
+}
+
+.waiting-queue-card {
+  grid-area: waiting;
+}
+
+.event-log-card {
+  grid-area: event;
+}
 
 @media (max-width: 1024px) {
   .dashboard {
@@ -95,10 +110,12 @@ header i {
   flex-direction: column;
   transition: transform 0.3s, box-shadow 0.3s;
 }
+
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
 }
+
 .card h2 {
   font-size: 1.2rem;
   display: flex;
@@ -107,6 +124,7 @@ header i {
   margin-bottom: 18px;
   color: var(--text);
 }
+
 .card h2 i {
   color: var(--accent);
 }
@@ -242,4 +260,103 @@ table th {
 
 #eventLog p:last-child {
   border-bottom: none;
+}
+
+
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background: var(--table-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  display: block;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.running-processes-card table {
+  max-height: 350px;
+}
+
+thead {
+  background: #2c2c3a;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #444457;
+}
+
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  transition: background 0.3s;
+}
+
+tbody tr:hover {
+  background: var(--table-row-hover);
+}
+
+/* Progress Bar */
+.progress-bar {
+  background: var(--progress-bg);
+  border-radius: 8px;
+  height: 8px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.progress {
+  background: var(--progress-fill);
+  height: 100%;
+  width: 0%;
+  transition: width 0.5s ease;
+  border-radius: 8px;
+}
+
+/* Log de eventos */
+#eventLog {
+  max-height: 220px;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  padding-right: 5px;
+  color: var(--text);
+}
+
+#eventLog p {
+  margin-bottom: 4px;
+}
+
+.log-info {
+  color: #0ff;
+}
+
+.log-success {
+  color: #4caf50;
+}
+
+.log-warning {
+  color: #ffc107;
+}
+
+.log-danger {
+  color: #f44336;
+}
+
+#eventLog::-webkit-scrollbar {
+  width: 6px;
+}
+
+#eventLog::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
 }

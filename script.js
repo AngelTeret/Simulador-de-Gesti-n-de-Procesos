@@ -80,7 +80,7 @@ setInterval(() => {
 function updateMemoryUI() {
   memoryUsedSpan.textContent = memoryUsed;
   memoryAvailableSpan.textContent = TOTAL_MEMORY - memoryUsed;
-  memoryBarUsed.style.width = `${(memoryUsed / TOTAL_MEMORY) * 100}%`;
+  updateMemoryBar(memoryUsed, TOTAL_MEMORY);
 }
 
 function renderRunning() {
@@ -133,6 +133,34 @@ function logEvent(message, type = 'info') {
   p.innerHTML = `<strong>[${now}]</strong> ${message}`;
   eventLog.prepend(p);
 }
+
+function updateMemoryBar(used, total) {
+  const arc = document.getElementById('memoryArc');
+  const display = document.getElementById('memoryUsedDisplay');
+  const percent = used / total;
+
+  display.textContent = used;
+
+  const circumference = 2 * Math.PI * 80; // 2 * π * r
+  const offset = circumference * (1 - percent);
+  arc.style.strokeDashoffset = offset;
+
+  // Cambiar color y glow dinámicamente
+  if (percent < 0.5) {
+    arc.style.stroke = '#4caf50';
+    display.style.color = '#4caf50';
+    display.style.textShadow = '0 0 6px #4caf50, 0 0 12px #4caf50';
+  } else if (percent < 0.8) {
+    arc.style.stroke = '#ffc107';
+    display.style.color = '#ffc107';
+    display.style.textShadow = '0 0 6px #ffc107, 0 0 12px #ffc107';
+  } else {
+    arc.style.stroke = '#f44336';
+    display.style.color = '#f44336';
+    display.style.textShadow = '0 0 6px #f44336, 0 0 12px #f44336';
+  }
+}
+
 
 function updateUI() {
   updateMemoryUI();
